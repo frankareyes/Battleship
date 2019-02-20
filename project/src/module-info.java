@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author fabreure
+ *
+ */
+module jeuxBattleship {
+}
