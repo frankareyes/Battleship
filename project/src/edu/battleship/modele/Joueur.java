@@ -2,12 +2,20 @@ package edu.battleship.modele;
 
 import java.util.List;
 
+/**
+ * 
+ * @author fabreure
+ * Cette classe est un modèle du juge
+ *
+ */
+
 public class Joueur {
 	private String nom;
 	private int points;
 	private List<Bateau> bateaux;
 	private Grille grilleNavale;
 	private boolean tour;
+	private Host host;
 	
 	public Joueur(String nom, int points, List<Bateau> bateaux, Grille grilleNavale, boolean tour) {
 		super();
@@ -60,6 +68,14 @@ public class Joueur {
 
 	public Joueur() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Host getHost() {
+		return host;
+	}
+
+	public void setHost(Host host) {
+		this.host = host;
 	}
 
 }
