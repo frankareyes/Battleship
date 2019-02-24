@@ -12,8 +12,12 @@ public class Grille {
 	}
 
 	public Grille() {
-		// TODO Auto-generated constructor stub
-		
+		int[][] grille = new int[10][10];
+		for (int i = 0; i < grille.length; i++) {
+			for (int j = 0; j < grille[i].length; j++) {
+				grille[i][j] = 0;
+			}
+		}
 	}
 
 	public Grille(int[][] pos) {
