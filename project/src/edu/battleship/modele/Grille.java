@@ -1,8 +1,19 @@
 package edu.battleship.modele;
 
+import java.util.HashSet;
+
 public class Grille {
 	private int[][] pos;
+	private HashSet<Paire> hashPaires;
 	
+	public HashSet<Paire> getHashPaires() {
+		return hashPaires;
+	}
+
+	public void setHashPaires(HashSet<Paire> hashPaires) {
+		this.hashPaires = hashPaires;
+	}
+
 	public int[][] getPos() {
 		return pos;
 	}
@@ -20,9 +31,11 @@ public class Grille {
 		}
 	}
 
-	public Grille(int[][] pos) {
+	public Grille(int[][] pos, HashSet<Paire> hashPaires) {
 		super();
 		this.pos = pos;
+		this.hashPaires = hashPaires;
 	}
+
 
 }
