@@ -17,10 +17,11 @@ public class CreerJoueurControleur {
 	public Joueur creerJoueur(String nom, Host host) {
 		joueur = new Joueur();
 		joueur.setPoints(12);
-		joueur.setBateaux(creerBateau());
 		joueur.setNom(nom);
 		joueur.setHost(host);
-		grille = new Grille();
+		grille = new GrilleCreateurControleur().createGrille();
+		joueur.setGrilleNavale(grille);
+		joueur.setBateaux(creerBateau());
 		/**
 		 * si je vais jouer contre l'ordinateur alors je commence, sinon l'autre joueur
 		 * commence
@@ -41,19 +42,19 @@ public class CreerJoueurControleur {
 		// creer un porte-avion
 		Grille grilleBateau = new Grille();
 		
-		Bateau porteAvion = new Bateau("Porte-Avion", "Porte-Avion", 4, true, null);
+		Bateau porteAvion = new Bateau("Porte-Avion", "Porte-Avion", 4, true, grille.getPorteAvion());
 		bateaux.add(porteAvion);
 
 		// creer un destructeur
-		Bateau destructeur = new Bateau("USS Nimic", "Destructeur", 3, true, null);
+		Bateau destructeur = new Bateau("USS Nimic", "Destructeur", 3, true, grille.getDestructeur());
 		bateaux.add(destructeur);
 
 		// creer un sous-marin
-		Bateau sousMarin = new Bateau("Nuclear A5", "Sous-Marin", 3, true, null);
+		Bateau sousMarin = new Bateau("Nuclear A5", "Sous-Marin", 3, true, grille.getSousMarin());
 		bateaux.add(sousMarin);
 
 		// creer un bateau de patroille
-		Bateau bateauPatroille = new Bateau("Patrol 1", "Bateau-Patroille", 2, true, null);
+		Bateau bateauPatroille = new Bateau("Patrol 1", "Bateau-Patroille", 2, true, grille.getBateauPatroille());
 		bateaux.add(bateauPatroille);
 
 		return bateaux;
