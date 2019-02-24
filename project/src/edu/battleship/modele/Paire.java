@@ -26,7 +26,7 @@ public class Paire {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + X;
-		result = prime * result + Y;
+		//result = prime * result + Y;
 		return result;
 	}
 

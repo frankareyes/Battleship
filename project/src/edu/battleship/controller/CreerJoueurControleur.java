@@ -7,17 +7,20 @@ import edu.battleship.modele.Bateau;
 import edu.battleship.modele.Grille;
 import edu.battleship.modele.Host;
 import edu.battleship.modele.Joueur;
+import edu.battleship.modele.Paire;
 
 public class CreerJoueurControleur {
 
 	private Joueur joueur;
-
+	private Grille grille;
+	
 	public Joueur creerJoueur(String nom, Host host) {
 		joueur = new Joueur();
 		joueur.setPoints(12);
 		joueur.setBateaux(creerBateau());
 		joueur.setNom(nom);
 		joueur.setHost(host);
+		grille = new Grille();
 		/**
 		 * si je vais jouer contre l'ordinateur alors je commence, sinon l'autre joueur
 		 * commence
@@ -36,7 +39,8 @@ public class CreerJoueurControleur {
 		List<Bateau> bateaux = new ArrayList<>();
 
 		// creer un porte-avion
-
+		Grille grilleBateau = new Grille();
+		
 		Bateau porteAvion = new Bateau("Porte-Avion", "Porte-Avion", 4, true, null);
 		bateaux.add(porteAvion);
 
@@ -58,6 +62,15 @@ public class CreerJoueurControleur {
 	public void creerGrille() {
 		
 		
+	}
+	
+	private List<Paire> getRandom(int pointsRetourne) {
+		
+		List<Paire> list = new ArrayList<Paire>();
+		
+		
+		
+		return null;
 	}
 	
 }

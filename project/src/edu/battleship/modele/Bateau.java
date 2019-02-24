@@ -1,18 +1,20 @@
 package edu.battleship.modele;
 
+import java.util.List;
+
 public class Bateau {
 	private String nom;
 	private String type;
 	private int taille;
 	private boolean statu;
-	private Grille position;
+	private List<Paire> position;
 	
 	public Bateau() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	
-	public Bateau(String nom, String type, int taille, boolean statu, Grille position) {
+	public Bateau(String nom, String type, int taille, boolean statu, List<Paire> position) {
 		super();
 		this.nom = nom;
 		this.type = type;
@@ -47,11 +49,11 @@ public class Bateau {
 		this.statu = statu;
 	}
 
-	public Grille getPosition() {
+	public List<Paire> getPosition() {
 		return position;
 	}
 
-	public void setPosition(Grille position) {
+	public void setPosition(List<Paire> position) {
 		this.position = position;
 	}
 	
