@@ -6,4 +6,5 @@
  *
  */
 module jeuxBattleship {
+	requires java.desktop;
 }

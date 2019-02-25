@@ -14,7 +14,7 @@ public class PartieControleur {
 }*/
 
 /**
- * Class to 
+ * Class to load de Game
  */
 package edu.battleship.controller;
 
