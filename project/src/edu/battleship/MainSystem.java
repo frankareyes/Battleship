@@ -1,12 +1,16 @@
 package edu.battleship;
 
-import edu.battleship.controller.PartieControleur;
+import edu.battleship.vue.*;
+/*import edu.battleship.controller.PartieControleur;
 import edu.battleship.modele.Host;
-import edu.battleship.modele.Paire;
+import edu.battleship.modele.Paire;*/
 
 public class MainSystem {
 	
 	public static void main(String[] args) {
+		Menu menu = new Menu();
+		menu.RunMenu(null);
+/*
 		PartieControleur  controleur = new PartieControleur();
 		controleur.initGame("Marlon", "standard", new Host(6621, "localhost", true));
 		
@@ -24,7 +28,7 @@ public class MainSystem {
 		System.err.println(controleur.getMachine());
 		
 		System.err.println("\nwinner:\n"+controleur.getWinner());
-		
+*/		
 		
 	}
 
