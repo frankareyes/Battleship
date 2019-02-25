@@ -56,4 +56,9 @@ public class Paire {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "Paire [X=" + X + ", Y=" + Y + "]";
+	}
+
 }

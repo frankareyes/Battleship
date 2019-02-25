@@ -40,4 +40,9 @@ public class Host {
 		this.server = server;
 	}
 
+	@Override
+	public String toString() {
+		return "\nHost [port=" + port + ", address=" + address + ", server=" + server + "]";
+	}
+
 }

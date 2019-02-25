@@ -56,6 +56,13 @@ public class Bateau {
 	public void setPosition(List<Paire> position) {
 		this.position = position;
 	}
+
+
+	@Override
+	public String toString() {
+		return "\nBateau [nom=" + nom + ", type=" + type + ", taille=" + taille + ", statu=" + statu + ", position="
+				+ position + "]";
+	}
 	
 	
 	

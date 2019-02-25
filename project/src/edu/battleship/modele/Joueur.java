@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 
  * @author fabreure
- * Cette classe est un modèle du juge
+ * Cette classe est un modele du juge
  *
  */
 
@@ -76,6 +76,12 @@ public class Joueur {
 
 	public void setHost(Host host) {
 		this.host = host;
+	}
+
+	@Override
+	public String toString() {
+		return "\nJoueur [nom=" + nom + ", points=" + points + ", bateaux=" + bateaux + ", grilleNavale=" + grilleNavale
+				+ ", tour=" + tour + ", host=" + host + "]";
 	}
 
 }

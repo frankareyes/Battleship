@@ -20,12 +20,25 @@ public class Grille {
 
 
 	public Grille() {
-		int[][] grille = new int[10][10];
-		for (int i = 0; i < grille.length; i++) {
-			for (int j = 0; j < grille[i].length; j++) {
-				grille[i][j] = 0;
+		pos = new int[10][10];
+		for (int i = 0; i < pos.length; i++) {
+			for (int j = 0; j < pos[i].length; j++) {
+				pos[i][j] = 0;
 			}
 		}
+	}
+
+	public String print() {
+		String var = "{";
+		for (int i = 0; i < pos.length; i++) {
+			var += "\n[";
+			for (int j = 0; j < pos[i].length; j++) {
+				var += pos[i][j]+" ";
+			}
+			var += "]";
+		}
+		var += "}";
+		return var;
 	}
 
 
@@ -86,6 +99,14 @@ public class Grille {
 
 	public void setBateauPatroille(List<Paire> bateauPatroille) {
 		this.bateauPatroille = bateauPatroille;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "\nGrille [pos=" + print() + ", \ndestructeur=" + destructeur + ", \nporteAvion=" + porteAvion
+				+ ", \nsousMarin=" + sousMarin + ", \nbateauPatroille=" + bateauPatroille + "]";
 	}
 
 }

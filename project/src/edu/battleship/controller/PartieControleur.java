@@ -1,40 +1,107 @@
-/*package edu.battleship.controller;
-
-import edu.battleship.modele.Host;
-import edu.battleship.modele.Joueur;
-
-public class PartieControleur {
-
-	public PartieControleur(String nomJoueur1, String nomJoueur2, Host host, String mode) {
-
-	Joueur joueur1 = new CreerJoueurControleur().creerJoueur(nomJoueur1, host);
-	Joueur joueur2 = new CreerJoueurControleur().creerJoueur(nomJoueur2, host);
-	}
-
-}*/
-
-/**
- * Class to load de Game
- */
 package edu.battleship.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 import edu.battleship.modele.Host;
 import edu.battleship.modele.Joueur;
+import edu.battleship.modele.Paire;
 
 public class PartieControleur {
-
-	private Joueur joueur;
-	private Joueur host;
-	private Joueur remoteJoueur;
-
-	public PartieControleur(String nomJoueur1, String nomJoueur2, Host host, String mode) {
-
-		Joueur joueur1 = new CreerJoueurControleur().creerJoueur(nomJoueur1, host);
-		Joueur joueur2 = new CreerJoueurControleur().creerJoueur(mode.equalsIgnoreCase("machine") ? "machine" : nomJoueur2, host);
+	
+	private Joueur player;
+	private Joueur machine;
+	private Joueur remotePleyer;
+	private String winner;
+	private List<Paire> machinePaires;
+		
+public PartieControleur() {
+	// TODO Auto-generated constructor stub
+	winner = "No One";
+}
+	
+	
+	public void initGame(String nomJoueur, String mode, Host host) {
+		player = new CreerJoueurControleur().creerJoueur(nomJoueur, null);
+		if (mode.contentEquals("standard")) {
+			machine = new CreerJoueurControleur().creerJoueur("Machine", null);
+			machinePaires = fillmachinePaires();
+		}else {
+			remotePleyer = new CreerJoueurControleur().creerJoueur("remotePleyer", host);
+		}
+			
+	}
+	
+	private List<Paire> fillmachinePaires() {
+		List<Paire>  paires = new ArrayList<>();
+		for (int i = 0; i < machine.getGrilleNavale().getPos().length; i++) {
+			for (int j = 0; j < machine.getGrilleNavale().getPos()[i].length; j++) {
+				paires.add(new Paire(i, j));
+			}
+		}
+		return paires;
 	}
 
-	public Joueur obtenirJoueur(String nomJoueur, String mode, Host host) {
-		return new CreerJoueurControleur().creerJoueur(mode.equalsIgnoreCase("machine") ? "machine" : nomJoueur, host);
+
+	public boolean playToMachine(Paire paire) {
+		boolean hit= false;
+		if(machine.getGrilleNavale().getPos()[paire.getX()][paire.getY()]==1) {
+			machine.getGrilleNavale().getPos()[paire.getX()][paire.getY()] =2;
+
+			hit = true;
+			machine.setPoints(machine.getPoints()-1);
+			if (machine.getPoints()==0) {
+				winner = player.getNom();
+			}
+		}else {
+			machine.getGrilleNavale().getPos()[paire.getX()][paire.getY()] =-1;
+
+		}
+		
+		return hit;
+	}
+	
+	
+	public boolean machineToPlay() {
+		boolean hit= false;
+		int index = ThreadLocalRandom.current().nextInt(0, machinePaires.size());
+		
+		Paire paire = machinePaires.get(index);
+		machinePaires.remove(paire);
+		if(player.getGrilleNavale().getPos()[paire.getX()][paire.getY()]==1) {
+			player.getGrilleNavale().getPos()[paire.getX()][paire.getY()] =2;
+			hit = true;
+			player.setPoints(player.getPoints()-1);
+			if (player.getPoints()==0) {
+				winner = machine.getNom();
+			}
+		}else {
+			player.getGrilleNavale().getPos()[paire.getX()][paire.getY()] =-1;
+		}
+		
+		return hit;
+	}
+	
+
+	
+	public Joueur getPlayer() {
+		return player;
+	}
+
+
+	public Joueur getMachine() {
+		return machine;
+	}
+
+
+	public Joueur getRemotePleyer() {
+		return remotePleyer;
+	}
+
+
+	public String getWinner() {
+		return winner;
 	}
 
 }
