@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import edu.battleship.controller.InfoConn;
+import edu.battleship.controller.InfoConn.EMODE;
 import edu.battleship.controller.PartieControleur;
 import edu.battleship.modele.Host;
 import edu.battleship.modele.Paire;
@@ -71,16 +73,23 @@ public class Menu extends JFrame {
 		contenudeFond.setBounds(0, 0, 800, 450); 
 		contenudeFond.setVisible(true);
 		contenudePanneau.add(contenudeFond);
+
+		//Info Fenetre
+		InfoConexionFenetre infofenetre = new InfoConexionFenetre();
+		infofenetre.modeConn(EMODE.CLIENT);
 		
 		 //Panneau de Boutons
 		JPanel panneauBoutons = new JPanel();
 		contenudePanneau.add(panneauBoutons, BorderLayout.SOUTH);
 
 		//Button Jouer contre l ordinateur
-		JButton btnDemarrerJeu = new JButton("Jouer mode Solo");
-		btnDemarrerJeu.addActionListener(new ActionListener() {
+		JButton btnSOLO = new JButton("Jouer mode Solo");
+		btnSOLO.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				InfoConn info = new InfoConn(EMODE.SOLO);
 
+				
+/*
 				PartieControleur controleur = new PartieControleur();
 				controleur.initGame("Marlon", "standard", new Host(6621, "localhost", true));
 
@@ -98,35 +107,36 @@ public class Menu extends JFrame {
 				System.err.println(controleur.getMachine());
 
 				System.err.println("\nwinner:\n" + controleur.getWinner());
+*/				
 			}
 		});
-		btnDemarrerJeu.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/personne1.png")));
-		btnDemarrerJeu.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnSOLO.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/personne1.png")));
+		btnSOLO.setVerticalAlignment(SwingConstants.BOTTOM);
 
 		//Bouton jouer contre un autre joueur
-		JButton btnConfiguration = new JButton("Jouer mode Client");
-		btnConfiguration.addActionListener(new ActionListener() {
+		JButton btnCLIENT = new JButton("Jouer mode Client");
+		btnCLIENT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+				infofenetre.modeConn(EMODE.CLIENT);
+				infofenetre.setVisible(true);
 			}
 		});
-		btnConfiguration.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/client1.png")));
+		btnCLIENT.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/client1.png")));
 
 		//Bouton fermer
-		JButton btnFermer = new JButton("Jouer mode Server");
-		btnFermer.addActionListener(new ActionListener() {
+		JButton btnSERVEUR = new JButton("Jouer mode Server");
+		btnSERVEUR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				System.exit(0);
+				infofenetre.modeConn(EMODE.SERVEUR);
+				infofenetre.setVisible(true);
 			}
 		});
 
-		btnFermer.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/serveur1.png")));
+		btnSERVEUR.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/serveur1.png")));
 		panneauBoutons.setLayout(new GridLayout(0, 3, 0, 0));
-		panneauBoutons.add(btnDemarrerJeu);
-		panneauBoutons.add(btnConfiguration);
-		panneauBoutons.add(btnFermer);
+		panneauBoutons.add(btnSOLO);
+		panneauBoutons.add(btnCLIENT);
+		panneauBoutons.add(btnSERVEUR);
 
 	    Menu.setDefaultLookAndFeelDecorated(true);
 
