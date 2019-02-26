@@ -1,6 +1,6 @@
 package edu.battleship.vue;
 
-import java.awt.EventQueue;
+//import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,40 +20,23 @@ import javax.swing.ImageIcon;
 
 public class InfoConexionFenetre extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtIP;
 	private JTextField txtPort;
 	private EMODE modeConn;
 	
-	public void modeConn(EMODE mode) {
-		this.modeConn=mode;
-	}
-	
-	/**
-	 * Launch the application.
-	 */
-	public void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InfoConexionFenetre frame = new InfoConexionFenetre();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
-	public InfoConexionFenetre() {
+	public InfoConexionFenetre(boolean isServeur) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 302, 255);
+		this.setTitle("Info Conexion");
 		this.setLocationRelativeTo(null);
-		this.setTitle(String.valueOf(modeConn));
-		System.out.println(modeConn);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -80,13 +63,14 @@ public class InfoConexionFenetre extends JFrame {
 		txtIP.setHorizontalAlignment(SwingConstants.LEFT);
 		panneauIP.add(txtIP);
 		txtIP.setColumns(15);
-
-		if(this.modeConn == EMODE.SERVEUR) {
-			txtIP.setText("n est pas necessaire");
+		if(isServeur) {
+			txtIP.setText("0.0.0.0");
 			txtIP.setEnabled(false);
+			modeConn=EMODE.SERVEUR;
 		} else {
 			txtIP.setText("");
 			txtIP.setEnabled(true);
+			modeConn=EMODE.CLIENT;
 		}
 		
 
@@ -98,6 +82,7 @@ public class InfoConexionFenetre extends JFrame {
 		btnSoumettre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InfoConn conn = new InfoConn(modeConn,Integer.valueOf(txtPort.getText()),txtIP.getText());
+				conn.Affichier();
 				setVisible(false);
 				dispose(); 
 

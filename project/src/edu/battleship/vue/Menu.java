@@ -17,9 +17,9 @@ import javax.swing.SwingConstants;
 
 import edu.battleship.controller.InfoConn;
 import edu.battleship.controller.InfoConn.EMODE;
-import edu.battleship.controller.PartieControleur;
-import edu.battleship.modele.Host;
-import edu.battleship.modele.Paire;
+//import edu.battleship.controller.PartieControleur;
+//import edu.battleship.modele.Host;
+//import edu.battleship.modele.Paire;
 
 public class Menu extends JFrame {
 
@@ -75,8 +75,8 @@ public class Menu extends JFrame {
 		contenudePanneau.add(contenudeFond);
 
 		//Info Fenetre
-		InfoConexionFenetre infofenetre = new InfoConexionFenetre();
-		infofenetre.modeConn(EMODE.CLIENT);
+//		InfoConexionFenetre infofenetre = new InfoConexionFenetre();
+//		infofenetre.modeConn(EMODE.CLIENT);
 		
 		 //Panneau de Boutons
 		JPanel panneauBoutons = new JPanel();
@@ -87,7 +87,7 @@ public class Menu extends JFrame {
 		btnSOLO.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InfoConn info = new InfoConn(EMODE.SOLO);
-
+				info.Affichier();
 				
 /*
 				PartieControleur controleur = new PartieControleur();
@@ -117,7 +117,7 @@ public class Menu extends JFrame {
 		JButton btnCLIENT = new JButton("Jouer mode Client");
 		btnCLIENT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				infofenetre.modeConn(EMODE.CLIENT);
+				InfoConexionFenetre infofenetre = new InfoConexionFenetre(false);
 				infofenetre.setVisible(true);
 			}
 		});
@@ -127,7 +127,7 @@ public class Menu extends JFrame {
 		JButton btnSERVEUR = new JButton("Jouer mode Server");
 		btnSERVEUR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				infofenetre.modeConn(EMODE.SERVEUR);
+				InfoConexionFenetre infofenetre = new InfoConexionFenetre(true);
 				infofenetre.setVisible(true);
 			}
 		});

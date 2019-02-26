@@ -11,7 +11,7 @@ public class InfoConn {
 		super();
 		this.mode = mode;
 		this.port = 0;
-		this.ipAdresse = "";
+		this.ipAdresse = "0.0.0.0";
 	}
 
 	public InfoConn(EMODE mode, int port, String ipAdresse) {
@@ -33,4 +33,9 @@ public class InfoConn {
 		return ipAdresse;
 	}
 
+	public void Affichier() {
+		System.out.println(mode);
+		System.out.println(port);
+		System.out.println(ipAdresse);
+	}
 }
