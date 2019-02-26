@@ -77,7 +77,7 @@ public class Menu extends JFrame {
 		contenudePanneau.add(panneauBoutons, BorderLayout.SOUTH);
 
 		//Button Jouer contre l ordinateur
-		JButton btnDemarrerJeu = new JButton("Jouer contre l'ordinateur");
+		JButton btnDemarrerJeu = new JButton("Jouer mode Solo");
 		btnDemarrerJeu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -100,21 +100,21 @@ public class Menu extends JFrame {
 				System.err.println("\nwinner:\n" + controleur.getWinner());
 			}
 		});
-		btnDemarrerJeu.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/ordinateur1.png")));
+		btnDemarrerJeu.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/personne1.png")));
 		btnDemarrerJeu.setVerticalAlignment(SwingConstants.BOTTOM);
 
 		//Bouton jouer contre un autre joueur
-		JButton btnConfiguration = new JButton("Jouer contre un autre Joueur");
+		JButton btnConfiguration = new JButton("Jouer mode Client");
 		btnConfiguration.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				
 			}
 		});
-		btnConfiguration.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/personne1.png")));
+		btnConfiguration.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/client1.png")));
 
 		//Bouton fermer
-		JButton btnFermer = new JButton("Fermer");
+		JButton btnFermer = new JButton("Jouer mode Server");
 		btnFermer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -122,7 +122,7 @@ public class Menu extends JFrame {
 			}
 		});
 
-		btnFermer.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/fermer1.png")));
+		btnFermer.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/serveur1.png")));
 		panneauBoutons.setLayout(new GridLayout(0, 3, 0, 0));
 		panneauBoutons.add(btnDemarrerJeu);
 		panneauBoutons.add(btnConfiguration);
