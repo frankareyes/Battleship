@@ -2,23 +2,22 @@ package edu.battleship.vue;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import java.awt.Toolkit;
-import java.awt.FlowLayout;
 
 import edu.battleship.controller.PartieControleur;
 import edu.battleship.modele.Host;
 import edu.battleship.modele.Paire;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
 
 public class Menu extends JFrame {
 
@@ -26,7 +25,8 @@ public class Menu extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contenudePanneau;// panneau de contenu
+	private final int ecranLargeur = 800;
+	private final int ecranHauteur = 550;
 
 	/**
 	 * Launch the application.
@@ -36,6 +36,7 @@ public class Menu extends JFrame {
 			public void run() {
 				try {
 					Menu frame = new Menu();
+					//frame.setContentPane(new JLabel(new ImageIcon("/edu/battleship/vue/Titre.png")));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,56 +46,31 @@ public class Menu extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Constructor
+	 * @throws IOException 
 	 */
 
-	public class VentanaConFondo {
-		private JFrame vent;// variable vent de tipo JFrame
 
-		public VentanaConFondo() {
-			crearVentana();// método que se encarga de crear la Ventana
-		}
-
-		private void crearVentana() {
-
-			vent = new JFrame("Ventana de JuegoSoftware.com con fondo");
-			// nombre que toma la ventana
-			vent.setSize(900, 592);
-			// tamaño de la ventana, cogemos el tamaño de la imagen que vamos a poner en el
-			// JLabel por lo que hemos explicado más arriba
-			vent.setContentPane(new JLabel(new ImageIcon("Imagenes/Img1.jpg")));// añade una imagen a un JLabel para que
-																				// aparezca de fondo de la ventana
-			vent.setLocationRelativeTo(null);// ventana centrada en pantalla
-			vent.getContentPane().setLayout(null);// para que no acomode los elementos y los podamos poner donde
-													// queramos en caso de que los hubiera
-			vent.setResizable(false);// para que no se pueda cambiar de tamaño la ventana
-			vent.setVisible(true);// para que la ventana visible
-			vent.setDefaultCloseOperation(vent.EXIT_ON_CLOSE);// para que se cierre al salir
-		}
-
-	}
-
+	//Constructor
 	public Menu() {
-		final int ecranLargeur = 800;
-		final int ecranHauteur = 450;
-
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/edu/battleship/vue/Titre.png")));
 		this.setTitle("Battleship Frank-Aissata-Francis");
-		this.setBounds(100, 100, ecranLargeur, ecranHauteur);
+		this.setBounds(0, 0, ecranLargeur, ecranHauteur);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		contenudePanneau = new JPanel();
-		contenudePanneau.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		JPanel contenudePanneau = new JPanel();
 		contenudePanneau.setLayout(new BorderLayout(0, 0));
-		this.setContentPane(contenudePanneau);
+		//setOpacity(1);
 
-		 //JPanel panneauFond = new JPanel(); 
-		 JLabel panneauFond = new JLabel(new ImageIcon("/edu/battleship/vue/Titre.png"));
-		 panneauFond.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		 contenudePanneau.add(panneauFond);
-
+		//Image de Fond
+		ImageIcon img = new ImageIcon(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/edu/battleship/vue/Titre.png")));
+		JLabel contenudeFond = new JLabel("",img,JLabel.CENTER);
+		//contenudeFond.setSize(ecranLargeur, ecranHauteur);
+		contenudeFond.setBounds(0, 0, 800, 450); 
+		contenudeFond.setVisible(true);
+		contenudePanneau.add(contenudeFond);
 		
 		 //Panneau de Boutons
 		JPanel panneauBoutons = new JPanel();
@@ -129,6 +105,12 @@ public class Menu extends JFrame {
 
 		//Bouton jouer contre un autre joueur
 		JButton btnConfiguration = new JButton("Jouer contre un autre Joueur");
+		btnConfiguration.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
 		btnConfiguration.setIcon(new ImageIcon(Menu.class.getResource("/edu/battleship/vue/personne1.png")));
 
 		//Bouton fermer
@@ -146,17 +128,11 @@ public class Menu extends JFrame {
 		panneauBoutons.add(btnConfiguration);
 		panneauBoutons.add(btnFermer);
 
+	    Menu.setDefaultLookAndFeelDecorated(true);
+
+		this.setContentPane(contenudePanneau);
 		
 
-
 	}
-	/*
-	 * class EcouteurBouton implements ActionListener {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { String text =
-	 * ((JButton) (e.getSource())).getText();
-	 * 
-	 * if (text == "Quitter") System.exit(0); else System.out.println("Hello"); } }
-	 */
 
 }
