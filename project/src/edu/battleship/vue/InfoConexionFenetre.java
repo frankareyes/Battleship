@@ -37,6 +37,7 @@ public class InfoConexionFenetre extends JFrame {
 		setBounds(100, 100, 302, 255);
 		this.setTitle("Info Conexion");
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

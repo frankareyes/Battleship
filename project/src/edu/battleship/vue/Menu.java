@@ -38,7 +38,6 @@ public class Menu extends JFrame {
 			public void run() {
 				try {
 					Menu frame = new Menu();
-					//frame.setContentPane(new JLabel(new ImageIcon("/edu/battleship/vue/Titre.png")));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,15 +68,10 @@ public class Menu extends JFrame {
 		//Image de Fond
 		ImageIcon img = new ImageIcon(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/edu/battleship/vue/Titre.png")));
 		JLabel contenudeFond = new JLabel("",img,JLabel.CENTER);
-		//contenudeFond.setSize(ecranLargeur, ecranHauteur);
 		contenudeFond.setBounds(0, 0, 800, 450); 
 		contenudeFond.setVisible(true);
 		contenudePanneau.add(contenudeFond);
 
-		//Info Fenetre
-//		InfoConexionFenetre infofenetre = new InfoConexionFenetre();
-//		infofenetre.modeConn(EMODE.CLIENT);
-		
 		 //Panneau de Boutons
 		JPanel panneauBoutons = new JPanel();
 		contenudePanneau.add(panneauBoutons, BorderLayout.SOUTH);
@@ -87,8 +81,11 @@ public class Menu extends JFrame {
 		btnSOLO.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InfoConn info = new InfoConn(EMODE.SOLO);
-				info.Affichier();
-				
+				//info.Affichier();
+
+				GrilleFenetre grille = new GrilleFenetre();
+				//grille.setVisible(true);
+				grille.setVisible(true);
 /*
 				PartieControleur controleur = new PartieControleur();
 				controleur.initGame("Marlon", "standard", new Host(6621, "localhost", true));
