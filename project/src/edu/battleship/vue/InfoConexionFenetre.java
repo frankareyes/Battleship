@@ -33,7 +33,7 @@ public class InfoConexionFenetre extends JFrame {
 	 * Create the frame.
 	 */
 	public InfoConexionFenetre(boolean isServeur) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 302, 255);
 		this.setTitle("Info Conexion");
 		this.setLocationRelativeTo(null);

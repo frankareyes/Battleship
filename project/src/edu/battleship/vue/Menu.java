@@ -83,9 +83,10 @@ public class Menu extends JFrame {
 				InfoConn info = new InfoConn(EMODE.SOLO);
 				//info.Affichier();
 
-				GrilleFenetre grille = new GrilleFenetre();
+				//GrilleFenetre grille = new GrilleFenetre();
 				//grille.setVisible(true);
-				grille.setVisible(true);
+				//grille.setVisible(true);
+				GrilleFenetre.RunGrille();
 /*
 				PartieControleur controleur = new PartieControleur();
 				controleur.initGame("Marlon", "standard", new Host(6621, "localhost", true));
