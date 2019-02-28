@@ -5,34 +5,36 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.List;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JProgressBar;
-import java.awt.List;
+import javax.swing.border.EmptyBorder;
+
+import edu.battleship.controller.PartieControleur;
+import edu.battleship.modele.Host;
 
 public class GrilleFenetre extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private static PartieControleur partieControleur;
 
 	public static void RunGrille() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					partieControleur = new PartieControleur();
+					partieControleur.initGame("Jugador", "standard", new Host(6621, "localhost", true));
 					GrilleFenetre frame = new GrilleFenetre();
 					frame.setVisible(true);
+
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -154,7 +156,39 @@ public class GrilleFenetre extends JFrame {
 		JButton piece1, piece2; 
 		ArrayList<JButton> pieces1 = new ArrayList<JButton>();
 		ArrayList<JButton> pieces2 = new ArrayList<JButton>();
-		String[] rows = {"A","B","C","D","E","F","G","H","I","J"}; 
+		
+		int[][] pos= partieControleur.getPlayer().getGrilleNavale().getPos();
+		
+		for (int i = 0; i < pos.length; i++) {
+			for (int j = 0; j < pos[i].length; j++) {
+				piece1 = new JButton(); 
+		    	//piece1.setToolTipText(row + String.valueOf(col));
+		    	piece1.setBounds(0,0,30,30);
+		    	if(pos[i][j]==1) {
+		    		piece1.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/ship35x30.png")));
+		    	}else {
+		    		piece1.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/eau35x30.png")));
+		    	}
+	    		pieces1.add(piece1);
+				
+			}
+		}
+		
+		pos=partieControleur.getMachine().getGrilleNavale().getPos();
+		for (int i = 0; i < pos.length; i++) {
+			for (int j = 0; j < pos[i].length; j++) {
+				piece2 = new JButton(); 
+		    	piece2.setBounds(0,0,30,30); 
+		    	if(pos[i][j]==1) {
+		    		piece2.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/boom35x30.png")));
+		    	}else {
+		    		piece2.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/eau35x30.png")));
+		    	}
+		    	pieces2.add(piece2);
+			}
+		}
+		
+		/*String[] rows = {"A","B","C","D","E","F","G","H","I","J"}; 
 	    for(int col=1; col < 11; col++) { 
 	    	for (String row : rows) {
 		    	piece1 = new JButton(); 
@@ -169,11 +203,12 @@ public class GrilleFenetre extends JFrame {
 	    		piece2.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/eau35x30.png")));
 		        pieces2.add(piece2);
 			}
-	    }
+	    }*/
 	    
 	    for (JButton j:pieces1) { 
 		    panneauGrille1.add(j);
 	    } 
+	    
 	    for (JButton k:pieces2) { 
 		    panneauGrille2.add(k);
 	    } 
