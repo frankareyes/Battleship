@@ -6,9 +6,11 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.List;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 import edu.battleship.controller.PartieControleur;
 import edu.battleship.modele.Host;
 import edu.battleship.modele.Paire;
+import edu.battleship.modele.PaireAcepted;
 
 public class GrilleFenetre extends JFrame {
 
@@ -57,6 +60,10 @@ public class GrilleFenetre extends JFrame {
 		setBounds(0, 0, 800, 470);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
+		this.setIconImage(
+				Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/edu/battleship/vue/Titre.png")));
+		this.setTitle("Ecran de Jeux");
+
 		EcouteurBouton ecouteur = new EcouteurBouton();
 
 		// CONTENT PANNEAU
@@ -92,7 +99,7 @@ public class GrilleFenetre extends JFrame {
 		JProgressBar progressBar1 = new JProgressBar(0, 12);
 		progressBar1.setForeground(Color.BLUE);
 		panneauJoueur1.add(progressBar1);
-		progressBar1.setValue(3);
+		progressBar1.setValue(12);
 
 		// PANNEAU GRILLE GAUCHE
 		JPanel panneauGrille1 = new JPanel();
@@ -137,7 +144,7 @@ public class GrilleFenetre extends JFrame {
 		JProgressBar progressBar2 = new JProgressBar(0, 12);
 		progressBar2.setForeground(Color.RED);
 		panneauJoueur2.add(progressBar2);
-		progressBar2.setValue(8);
+		progressBar2.setValue(12);
 
 		// PANNEAU GRILLE DROITE
 		JPanel panneauGrille2 = new JPanel();
@@ -218,12 +225,49 @@ public class GrilleFenetre extends JFrame {
 	}
 
 	private Paire getPaire(String pair) {
-		  int x = Integer.valueOf(pair.substring(0, 1));
-		  int y = Integer.valueOf(pair.substring(1));
-		  System.out.println(x+" - "+y);
-		  return new Paire(x,y);
+		int x = Integer.valueOf(pair.substring(0, 1));
+		int y = Integer.valueOf(pair.substring(1));
+		System.out.println(x + " - " + y);
+		return new Paire(x, y);
 	}
-	
+
+	private void jeuContreOrdinateur() {
+
+		PaireAcepted paireAcepted = partieControleur.machineToPlay();
+
+		if (paireAcepted.isHit()) {
+
+			// Colacar la imagen de que le dio
+
+			// ((JButton) (e.getSource())) .setIcon(new
+			// ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/boom35x30.png")));
+			// ((JButton) (e.getSource())).repaint();
+
+			partieControleur.getPlayer().getGrilleNavale().getPos()[paireAcepted.getX()][paireAcepted.getY()] = 2;
+			partieControleur.getPlayer().setPoints(partieControleur.getPlayer().getPoints() - 1);
+			// partieControleur.getMachine().setPoints(partieControleur.getMachine().getPoints()
+			// + 1);
+
+			if (partieControleur.getPlayer().getPoints() == 0) {
+				// informar que gano!!
+			}
+
+		} else {
+
+			// Colacar la imagen de NO que le dio
+			/*
+			 * ((JButton) (e.getSource())) .setIcon(new
+			 * ImageIcon(GrilleFenetre.class.getResource(
+			 * "/edu/battleship/vue/splash35x30.png"))); ((JButton)
+			 * (e.getSource())).repaint();
+			 */
+
+			partieControleur.getPlayer().getGrilleNavale().getPos()[paireAcepted.getX()][paireAcepted.getY()] = -1;
+		}
+
+	}
+
+	// LISTENER
 	class EcouteurBouton implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -235,8 +279,12 @@ public class GrilleFenetre extends JFrame {
 				((JButton) (e.getSource())).repaint();
 				partieControleur.getMachine().getGrilleNavale().getPos()[par.getX()][par.getY()] = 2;
 				partieControleur.getMachine().setPoints(partieControleur.getMachine().getPoints() - 1);
-				partieControleur.getPlayer().setPoints(partieControleur.getPlayer().getPoints() + 1);
-				System.out.println("1");
+
+				if (partieControleur.getMachine().getPoints() == 0) {
+					// informar que gano!!
+				}
+				// partieControleur.getPlayer().setPoints(partieControleur.getPlayer().getPoints()
+				// + 1);
 
 			} else {
 				((JButton) (e.getSource()))
@@ -244,7 +292,15 @@ public class GrilleFenetre extends JFrame {
 				((JButton) (e.getSource())).repaint();
 				partieControleur.getMachine().getGrilleNavale().getPos()[par.getX()][par.getY()] = -1;
 			}
+
+			int sleepTime = ThreadLocalRandom.current().nextInt(1, 2);
+			try {
+				Thread.sleep(sleepTime * 1000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			jeuContreOrdinateur();
 		}
 	}
-
 }

@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import edu.battleship.modele.Host;
 import edu.battleship.modele.Joueur;
 import edu.battleship.modele.Paire;
+import edu.battleship.modele.PaireAcepted;
 
 public class PartieControleur {
 	
@@ -62,7 +63,7 @@ public PartieControleur() {
 		return hit;
 	}
 	
-	
+/*	
 	public boolean machineToPlay() {
 		boolean hit= false;
 		int index = ThreadLocalRandom.current().nextInt(0, machinePaires.size());
@@ -82,8 +83,27 @@ public PartieControleur() {
 		
 		return hit;
 	}
-	
-
+*/	
+	public PaireAcepted machineToPlay() {
+		  boolean hit= false;
+		  int index = ThreadLocalRandom.current().nextInt(0, machinePaires.size());
+		  
+		  Paire paire = machinePaires.get(index);
+		  machinePaires.remove(paire);
+		  if(player.getGrilleNavale().getPos()[paire.getX()][paire.getY()]==1) {
+		   player.getGrilleNavale().getPos()[paire.getX()][paire.getY()] =2;
+		   hit = true;
+		   player.setPoints(player.getPoints()-1);
+		   if (player.getPoints()==0) {
+		    winner = machine.getNom();
+		   }
+		  }else {
+		   player.getGrilleNavale().getPos()[paire.getX()][paire.getY()] =-1;
+		  }
+		  
+		  return new PaireAcepted(paire.getX(), paire.getY(), hit);
+		  
+		 }
 	
 	public Joueur getPlayer() {
 		return player;
