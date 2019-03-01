@@ -1,3 +1,7 @@
+/**
+ * This request the parameters of connection
+ */
+
 package edu.battleship.vue;
 
 //import java.awt.EventQueue;

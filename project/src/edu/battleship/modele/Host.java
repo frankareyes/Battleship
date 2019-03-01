@@ -1,3 +1,7 @@
+/**
+ * This class have the host information
+ */
+
 package edu.battleship.modele;
 
 public class Host {

@@ -1,3 +1,7 @@
+/**
+ * This class create a boat
+ */
+
 package edu.battleship.modele;
 
 import java.util.List;

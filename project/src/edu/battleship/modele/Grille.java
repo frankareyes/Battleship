@@ -1,3 +1,6 @@
+/**
+ * This class create the elements for the Grid
+ */
 package edu.battleship.modele;
 
 import java.util.List;

@@ -159,6 +159,12 @@ public class GrilleFenetre extends JFrame {
 		List list2 = new List();
 		panneauActionDroite.add(list2);
 
+		//COMMENCER
+		commencerJeu();
+	}//end of constructor
+
+	
+	private void commencerJeu() {
 		int[][] pos = partieControleur.getPlayer().getGrilleNavale().getPos();
 
 		for (int i = 0; i < pos.length; i++) {
@@ -194,24 +200,28 @@ public class GrilleFenetre extends JFrame {
 		for (JButton k : pieces2) {
 			panneauGrille2.add(k);
 		}
-	}//end of constructor
-
+		
+	}
+	
+	
 	private Paire getPaire(String pair) {
 		int x = Integer.valueOf(pair.substring(0, 1));
 		int y = Integer.valueOf(pair.substring(1));
 		//print the coord
-		System.out.println(x + " - " + y);
+		// System.out.println(x + " - " + y);
 		return new Paire(x, y);
 	}
-	private void setWinner(ArrayList<JButton> list, JPanel panneau) {
-		for (JButton j : list) {
-			panneau.remove(j);
-		}
+	private void setWinner(JPanel panneau) {
+		panneau.removeAll();
+		panneau.updateUI();
 		EcouteurBoutonWinner ecouteurWinner = new EcouteurBoutonWinner();
-		JButton btnWinner = new JButton("PRESS HERE TO RESTART");
+		JButton btnWinner = new JButton("Appuyez ici pour redémarrer");
+		panneau.add(btnWinner);
 		btnWinner.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/winner150x120.png")));
 		btnWinner.addActionListener(ecouteurWinner);
-		panneau.add(btnWinner);
+		panneau.setLayout(new GridLayout(1, 1, 0, 0));
+		panneau.updateUI();
+
 	}
 	
 	private void jeuContreOrdinateur() {
@@ -236,8 +246,8 @@ public class GrilleFenetre extends JFrame {
 					progressBar2.setValue(partieControleur.getPlayer().getPoints());
 
 				}
-				if (partieControleur.getPlayer().getPoints() == 0) {
-					setWinner(pieces1, panneauGrille1);
+				if (partieControleur.getPlayer().getPoints()==0) {
+					setWinner(panneauGrille1);
 				}
 
 		}//end of if 
@@ -266,7 +276,7 @@ public class GrilleFenetre extends JFrame {
 	class EcouteurBoutonWinner implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//put code here for restart the game
+			dispose();
 		}
 	}
 	/**
@@ -287,8 +297,9 @@ public class GrilleFenetre extends JFrame {
 				partieControleur.getMachine().getGrilleNavale().getPos()[par.getX()][par.getY()] = 2;
 				partieControleur.getMachine().setPoints(partieControleur.getMachine().getPoints());
 				progressBar1.setValue(partieControleur.getMachine().getPoints());
-				if (partieControleur.getMachine().getPoints() == 0) {
-					setWinner(pieces2, panneauGrille2);
+				
+				if (partieControleur.getMachine().getPoints()== 0) {
+					setWinner(panneauGrille2);
 				}
 
 			} else {

@@ -1,3 +1,6 @@
+/**
+ * This class provide the inicial parameters of the game
+ */
 package edu.battleship.controller;
 
 import java.util.ArrayList;

@@ -1,9 +1,13 @@
+/**
+ * This is for detect when the player got hit
+ * 
+ */
 package edu.battleship.modele;
 
 public class PaireAcepted extends Paire {
 
  private boolean hit;
-
+ 
  public boolean isHit() {
   return hit;
  }

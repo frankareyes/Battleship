@@ -1,3 +1,6 @@
+/**
+ * This class provide the parameters of Client-Server Conexion
+ */
 package edu.battleship.controller;
 
 public class InfoConn {

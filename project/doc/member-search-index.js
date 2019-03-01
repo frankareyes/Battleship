@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"edu.battleship.vue","c":"Menu","l":"Menu()","url":"%3Cinit%3E()"},{"p":"edu.battleship.vue","c":"Menu","l":"RunMenu(String[])","url":"RunMenu(java.lang.String[])"}]

@@ -1,3 +1,6 @@
+/**
+ * This is the main class who launch the Main Menu
+ */
 package edu.battleship;
 
 import edu.battleship.vue.*;

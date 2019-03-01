@@ -1,3 +1,6 @@
+/**
+ * Main menu Class
+ */
 package edu.battleship.vue;
 
 import java.awt.BorderLayout;
@@ -23,16 +26,10 @@ import edu.battleship.controller.InfoConn.EMODE;
 
 public class Menu extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final int ecranLargeur = 800;
 	private final int ecranHauteur = 550;
 
-	/**
-	 * Launch the application.
-	 */
 	public void RunMenu(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

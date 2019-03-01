@@ -1,3 +1,6 @@
+/**
+ * This is for creates coordenades
+ */
 package edu.battleship.modele;
 
 public class Paire {

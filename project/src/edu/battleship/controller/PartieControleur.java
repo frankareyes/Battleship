@@ -1,3 +1,8 @@
+/**
+ * This class have all information to manage the game
+ */
+
+
 package edu.battleship.controller;
 
 import java.util.ArrayList;
