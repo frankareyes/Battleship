@@ -48,7 +48,7 @@ public PartieControleur() {
 	public boolean playToMachine(Paire paire) {
 		boolean hit= false;
 		if(machine.getGrilleNavale().getPos()[paire.getX()][paire.getY()]==1) {
-			machine.getGrilleNavale().getPos()[paire.getX()][paire.getY()] =2;
+			machine.getGrilleNavale().getPos()[paire.getX()][paire.getY()]=2;
 
 			hit = true;
 			machine.setPoints(machine.getPoints()-1);

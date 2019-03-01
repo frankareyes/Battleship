@@ -208,60 +208,84 @@ public class GrilleFenetre extends JFrame {
 	private void jeuContreOrdinateur() {
 
 		PaireAcepted paireAcepted = partieControleur.machineToPlay();
-
+		String coordBtn;
+		String coord;
+		boolean isEqual;
+		
 		if (paireAcepted.isHit()) {
 
-			// Colacar la imagen de que le dio
+				partieControleur.getPlayer().getGrilleNavale().getPos()[paireAcepted.getX()][paireAcepted.getY()] = 2;
+				partieControleur.getPlayer().setPoints(partieControleur.getPlayer().getPoints());
 
-			partieControleur.getPlayer().getGrilleNavale().getPos()[paireAcepted.getX()][paireAcepted.getY()] = 2;
-			partieControleur.getPlayer().setPoints(partieControleur.getPlayer().getPoints() - 1);
-
+				// Colacar la imagen de que le dio
 				for (JButton btn : pieces1) {
-					if (btn.getToolTipText() == String.valueOf(paireAcepted.getX())+String.valueOf(paireAcepted.getY())) {
+					coordBtn = btn.getToolTipText();
+					coord = String.valueOf(paireAcepted.getX())+String.valueOf(paireAcepted.getY());
+					isEqual = coordBtn.equals(coord);
+					if (isEqual) {
 						btn.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/boom35x30.png")));
-						progressBar1.setValue(partieControleur.getPlayer().getPoints());
-						//System.out.println(String.valueOf(paireAcepted.getX())+String.valueOf(paireAcepted.getY()));
+						btn.repaint();
+						//System.out.println("Hit: CoordBtn="+coordBtn+" coord="+coord);
 					}
+					progressBar2.setValue(partieControleur.getPlayer().getPoints());
+
+					System.out.println("Hit: CoordBtn="+coordBtn+" coord="+coord+" points="+partieControleur.getPlayer().getPoints());
+
 				}
 				if (partieControleur.getPlayer().getPoints() == 0) {
 					// informar que gano!!
 				}
-			} else {
+
+		}//end of if 
+		else {
+				partieControleur.getPlayer().getGrilleNavale().getPos()[paireAcepted.getX()][paireAcepted.getY()] = -1;
+
 				// Colacar la imagen de NO que le dio
 				for (JButton btn : pieces1) {
-					if (btn.getToolTipText() == String.valueOf(paireAcepted.getX())+String.valueOf(paireAcepted.getY())) {
+					coordBtn = btn.getToolTipText();
+					coord = String.valueOf(paireAcepted.getX())+String.valueOf(paireAcepted.getY());
+					isEqual = coordBtn.equals(coord);	
+					if (isEqual) {
 						btn.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/splash35x30.png")));
 						btn.repaint();
+						//System.out.println("Fail: CoordBtn="+coordBtn+" coord="+coord);
 					}
+					System.out.println("Fail: CoordBtn="+coordBtn+" coord="+coord);
 
-				partieControleur.getPlayer().getGrilleNavale().getPos()[paireAcepted.getX()][paireAcepted.getY()] = -1;
-			}
+				}//end of for
+		}//end of else
+
 	}
-	}
-//}//end of class grille fenetre
+	//*************************************
 	// LISTENER
+	//*************************************
 	class EcouteurBouton implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String text = ((JButton) (e.getSource())).getToolTipText();
 			Paire par = getPaire(text);
+			
+			
 			if (partieControleur.playToMachine(par)) {
 				((JButton) (e.getSource()))
 						.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/boom35x30.png")));
 				((JButton) (e.getSource())).repaint();
 				partieControleur.getMachine().getGrilleNavale().getPos()[par.getX()][par.getY()] = 2;
-				partieControleur.getMachine().setPoints(partieControleur.getMachine().getPoints() - 1);
-
+				partieControleur.getMachine().setPoints(partieControleur.getMachine().getPoints());
+				progressBar1.setValue(partieControleur.getMachine().getPoints());
+				//System.out.println(partieControleur.getMachine().getPoints());
 				if (partieControleur.getMachine().getPoints() == 0) {
 					// informar que gano!!
+				}
 
-				} else {
-					((JButton) (e.getSource())).setIcon(
-							new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/splash35x30.png")));
+			} else {
+					((JButton) (e.getSource())).setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/splash35x30.png")));
+					//((JButton) (e.getSource())).setEnabled(false);
 					((JButton) (e.getSource())).repaint();
 					partieControleur.getMachine().getGrilleNavale().getPos()[par.getX()][par.getY()] = -1;
-				}
-/*
+			}
+
+ /*
 				int sleepTime = ThreadLocalRandom.current().nextInt(0, 1);
 				try {
 					Thread.sleep(sleepTime * 1000);
@@ -270,7 +294,7 @@ public class GrilleFenetre extends JFrame {
 				}
 */				jeuContreOrdinateur();
 			}
-		}
-	}//end of class Ecouteur Bouton
+		}//end of class Ecouteur Bouton
+	
 	}//end of class grille fenetre
 
