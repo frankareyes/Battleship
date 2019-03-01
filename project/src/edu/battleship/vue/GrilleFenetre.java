@@ -30,6 +30,13 @@ public class GrilleFenetre extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static PartieControleur partieControleur;
+	// PIECES DE CHAQUE GRILLE
+	JButton piece1, piece2;
+	ArrayList<JButton> pieces1 = new ArrayList<JButton>();
+	ArrayList<JButton> pieces2 = new ArrayList<JButton>();
+	// PROGRESS BARS
+	JProgressBar progressBar1 = new JProgressBar(0, 12);
+	JProgressBar progressBar2 = new JProgressBar(0, 12);
 
 	public static void RunGrille() {
 		EventQueue.invokeLater(new Runnable() {
@@ -64,8 +71,6 @@ public class GrilleFenetre extends JFrame {
 				Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/edu/battleship/vue/Titre.png")));
 		this.setTitle("Ecran de Jeux");
 
-		EcouteurBouton ecouteur = new EcouteurBouton();
-
 		// CONTENT PANNEAU
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -93,10 +98,6 @@ public class GrilleFenetre extends JFrame {
 		lblNomJouer1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panneauJoueur1.add(lblNomJouer1);
 
-		// JLabel lblPointsJouer1 = new JLabel("POINTS: 0/12");
-		// lblPointsJouer1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		// panneauJoueur1.add(lblPointsJouer1);
-		JProgressBar progressBar1 = new JProgressBar(0, 12);
 		progressBar1.setForeground(Color.BLUE);
 		panneauJoueur1.add(progressBar1);
 		progressBar1.setValue(12);
@@ -138,10 +139,6 @@ public class GrilleFenetre extends JFrame {
 		lblNomJouer2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panneauJoueur2.add(lblNomJouer2);
 
-//		JLabel lblPointsJouer2 = new JLabel("POINTS: 0/12");
-//		lblPointsJouer2.setFont(new Font("Tahoma", Font.BOLD, 12));
-//		panneauJoueur2.add(lblPointsJouer2);
-		JProgressBar progressBar2 = new JProgressBar(0, 12);
 		progressBar2.setForeground(Color.RED);
 		panneauJoueur2.add(progressBar2);
 		progressBar2.setValue(12);
@@ -161,13 +158,7 @@ public class GrilleFenetre extends JFrame {
 		List list2 = new List();
 		panneauActionDroite.add(list2);
 
-		// PIECES DE CHAQUE GRILLE
-		JButton piece1, piece2;
-		ArrayList<JButton> pieces1 = new ArrayList<JButton>();
-		ArrayList<JButton> pieces2 = new ArrayList<JButton>();
-
 		int[][] pos = partieControleur.getPlayer().getGrilleNavale().getPos();
-		// System.out.println(partieControleur.getPlayer().getGrilleNavale().getPos());
 
 		for (int i = 0; i < pos.length; i++) {
 			for (int j = 0; j < pos[i].length; j++) {
@@ -183,6 +174,7 @@ public class GrilleFenetre extends JFrame {
 
 			}
 		}
+		EcouteurBouton ecouteur = new EcouteurBouton();
 
 		pos = partieControleur.getMachine().getGrilleNavale().getPos();
 		for (int i = 0; i < pos.length; i++) {
@@ -191,29 +183,10 @@ public class GrilleFenetre extends JFrame {
 				piece2.setBounds(0, 0, 30, 30);
 				piece2.setToolTipText(String.valueOf(i) + String.valueOf(j));
 				piece2.addActionListener(ecouteur);
-//		    	if(pos[i][j]==1) {
-//		    		piece2.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/boom35x30.png")));
-//		    	}else {
 				piece2.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/eau35x30.png")));
-//		    	}
 				pieces2.add(piece2);
 			}
 		}
-
-		/*
-		 * String[] rows = {"A","B","C","D","E","F","G","H","I","J"}; for(int col=1; col
-		 * < 11; col++) { for (String row : rows) { piece1 = new JButton();
-		 * piece1.setToolTipText(row + String.valueOf(col));
-		 * piece1.setBounds(0,0,30,30); piece1.setIcon(new
-		 * ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/eau35x30.png")
-		 * )); pieces1.add(piece1);
-		 * 
-		 * piece2 = new JButton(); piece2.setToolTipText(row + String.valueOf(col));
-		 * piece2.setBounds(0,0,30,30); piece2.setIcon(new
-		 * ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/eau35x30.png")
-		 * )); pieces2.add(piece2); } }
-		 */
-
 		for (JButton j : pieces1) {
 			panneauGrille1.add(j);
 		}
@@ -222,11 +195,12 @@ public class GrilleFenetre extends JFrame {
 			panneauGrille2.add(k);
 		}
 
-	}
+	}//end of constructor
 
 	private Paire getPaire(String pair) {
 		int x = Integer.valueOf(pair.substring(0, 1));
 		int y = Integer.valueOf(pair.substring(1));
+		//print the coord
 		System.out.println(x + " - " + y);
 		return new Paire(x, y);
 	}
@@ -239,34 +213,32 @@ public class GrilleFenetre extends JFrame {
 
 			// Colacar la imagen de que le dio
 
-			// ((JButton) (e.getSource())) .setIcon(new
-			// ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/boom35x30.png")));
-			// ((JButton) (e.getSource())).repaint();
-
 			partieControleur.getPlayer().getGrilleNavale().getPos()[paireAcepted.getX()][paireAcepted.getY()] = 2;
 			partieControleur.getPlayer().setPoints(partieControleur.getPlayer().getPoints() - 1);
-			// partieControleur.getMachine().setPoints(partieControleur.getMachine().getPoints()
-			// + 1);
 
-			if (partieControleur.getPlayer().getPoints() == 0) {
-				// informar que gano!!
+				for (JButton btn : pieces1) {
+					if (btn.getToolTipText() == String.valueOf(paireAcepted.getX())+String.valueOf(paireAcepted.getY())) {
+						btn.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/boom35x30.png")));
+						progressBar1.setValue(partieControleur.getPlayer().getPoints());
+						//System.out.println(String.valueOf(paireAcepted.getX())+String.valueOf(paireAcepted.getY()));
+					}
+				}
+				if (partieControleur.getPlayer().getPoints() == 0) {
+					// informar que gano!!
+				}
+			} else {
+				// Colacar la imagen de NO que le dio
+				for (JButton btn : pieces1) {
+					if (btn.getToolTipText() == String.valueOf(paireAcepted.getX())+String.valueOf(paireAcepted.getY())) {
+						btn.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/splash35x30.png")));
+						btn.repaint();
+					}
+
+				partieControleur.getPlayer().getGrilleNavale().getPos()[paireAcepted.getX()][paireAcepted.getY()] = -1;
 			}
-
-		} else {
-
-			// Colacar la imagen de NO que le dio
-			/*
-			 * ((JButton) (e.getSource())) .setIcon(new
-			 * ImageIcon(GrilleFenetre.class.getResource(
-			 * "/edu/battleship/vue/splash35x30.png"))); ((JButton)
-			 * (e.getSource())).repaint();
-			 */
-
-			partieControleur.getPlayer().getGrilleNavale().getPos()[paireAcepted.getX()][paireAcepted.getY()] = -1;
-		}
-
 	}
-
+	}
+//}//end of class grille fenetre
 	// LISTENER
 	class EcouteurBouton implements ActionListener {
 		@Override
@@ -282,25 +254,23 @@ public class GrilleFenetre extends JFrame {
 
 				if (partieControleur.getMachine().getPoints() == 0) {
 					// informar que gano!!
+
+				} else {
+					((JButton) (e.getSource())).setIcon(
+							new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/splash35x30.png")));
+					((JButton) (e.getSource())).repaint();
+					partieControleur.getMachine().getGrilleNavale().getPos()[par.getX()][par.getY()] = -1;
 				}
-				// partieControleur.getPlayer().setPoints(partieControleur.getPlayer().getPoints()
-				// + 1);
-
-			} else {
-				((JButton) (e.getSource()))
-						.setIcon(new ImageIcon(GrilleFenetre.class.getResource("/edu/battleship/vue/splash35x30.png")));
-				((JButton) (e.getSource())).repaint();
-				partieControleur.getMachine().getGrilleNavale().getPos()[par.getX()][par.getY()] = -1;
+/*
+				int sleepTime = ThreadLocalRandom.current().nextInt(0, 1);
+				try {
+					Thread.sleep(sleepTime * 1000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+*/				jeuContreOrdinateur();
 			}
-
-			int sleepTime = ThreadLocalRandom.current().nextInt(1, 2);
-			try {
-				Thread.sleep(sleepTime * 1000);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			jeuContreOrdinateur();
 		}
-	}
-}
+	}//end of class Ecouteur Bouton
+	}//end of class grille fenetre
+
